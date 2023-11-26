@@ -25,6 +25,7 @@ install_application() {
         sudo mkdir /etc/charlotte_agent
         sudo mv charlotte_agent.service /etc/systemd/system/charlotte_agent.service
         sudo mv charlotte_agent.py /usr/bin/charlotte_agent.py
+        sudo chmod 755 /usr/bin/charlotte_agent.py
         sudo mv agent.conf /etc/charlotte_agent/agent.conf
         sudo mv ./modules/ /etc/charlotte_agent/modules/
         sudo mv README.md /etc/charlotte_agent/README.md
