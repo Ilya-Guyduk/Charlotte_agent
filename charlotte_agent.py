@@ -33,7 +33,7 @@ class ModuleManager:
 
     def configure_logging(self):
         log_file_path = self.config.get('general', 'LOG_FILE_PATH', fallback='app.log')
-        logging.basicConfig(filename=log_file_path, level=logging.DEBUG)
+        logging.basicConfig(filename=log_file_path, level=logging.DEBUG, format="%(asctime)s %(levelname)s %(message)s")
         watchdog_logger = logging.getLogger('watchdog')
         watchdog_logger.setLevel(getattr(logging, self.config.get('general', 'WATCHDOG_LOG_LEVEL', fallback='ERROR')))
 
