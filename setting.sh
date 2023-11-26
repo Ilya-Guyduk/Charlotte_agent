@@ -23,6 +23,7 @@ install_application() {
         echo "Init-файл создан!"
         echo "Великое перемещение файлов!"
         sudo mkdir /etc/charlotte_agent
+        sudo mkdir /var/log/charlotte_agent
         sudo mv charlotte_agent.service /etc/systemd/system/charlotte_agent.service
         sudo mv charlotte_agent.py /usr/bin/charlotte_agent.py
         sudo chmod 755 /usr/bin/charlotte_agent.py
