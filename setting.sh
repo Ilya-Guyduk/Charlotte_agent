@@ -10,16 +10,16 @@ install_application() {
         [Unit]
         Description=Charlotte_agent
         After=network.target
-........
+
         [Service]
         Type=simple
         ExecStart=/usr/bin/python3 /usr/bin/charlotte_agent.py --config=/etc/charlotte_agent/agent.conf
         Restart=on-failure
-........
+
         [Install]
         WantedBy=multi-user.target
         " > charlotte_agent.service
-........
+
         echo "Init-файл создан!"
         echo "Великое перемещение файлов!"
         sudo mkdir /etc/charlotte_agent
@@ -30,19 +30,19 @@ install_application() {
         sudo mv README.md /etc/charlotte_agent/README.md
         sudo mv LICENSE /etc/charlotte_agent/LICENSE
         sudo mv setting.sh /etc/charlotte_agent/setting.sh
-........
+
         echo "Удаляем лишнее!"
         rm -rf ./.git
         rm ./.gitattributes
         rm -r ../Charlotte_agent
-........
+
         echo "Конфигурация файлов окончена!"
-........
+
         # Открытие порта 5000
         sudo iptables -A INPUT -p tcp --dport 5000 -j ACCEPT
         sudo iptables-save > /etc/iptables/rules.v4
         echo "Фаерфолл настроен!"
-........
+
         # Запуск приложения
         sudo systemctl daemon-reload
         sudo systemctl start charlotte_agent
