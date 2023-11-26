@@ -15,8 +15,12 @@ def get_cpu_load():
 def get_metrics():
     cpu_percent = psutil.cpu_percent(interval=1)  # Получаем загрузку процессора за последнюю секунду
     module_metrics = {
-        "CPU_Module": {
-            "cpu_load": cpu_percent
+                "module_name": {
+                    "Health_Module": {
+                        "metrics": {
+                            "cpu_load": cpu_percent
+                }
+            }
         }
     }
     return module_metrics

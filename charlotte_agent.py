@@ -81,7 +81,7 @@ class ModuleManager:
 
 if __name__ == "__main__":
     config = configparser.ConfigParser()
-    config.read('agent.conf')
+    config.read('/etc/charlotte/agent.conf')
     
     module_manager = ModuleManager(config)
     module_manager.setup_environment_variables()
