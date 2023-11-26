@@ -54,11 +54,12 @@ class ModuleManager:
         def get_metrics():
             all_metrics = {}
 
-            module_files = [f for f in os.listdir('modules') if f.endswith('.py')]
+            module_files = [f for f in os.listdir('/etc/charlotte_agent/modules') if f.endswith('.py')]
+
 
             for file in module_files:
                 module_name = os.path.splitext(file)[0]
-                spec = importlib.util.spec_from_file_location(module_name, os.path.join('modules', file))
+                spec = importlib.util.spec_from_file_location(module_name, os.path.join('/etc/charlotte_agent/modules', file))
                 module = importlib.util.module_from_spec(spec)
                 spec.loader.exec_module(module)
 
@@ -70,19 +71,19 @@ class ModuleManager:
 
     def start_watching(self):
         observer = Observer()
-        observer.schedule(ModuleHandler(self.modules), path='./modules', recursive=False)
+        observer.schedule(ModuleHandler(self.modules), path='/etc/charlotte_agent/modules', recursive=False)
         observer.start()
         logging.debug("Отслеживание запущено")
-    
+
     def run(self):
-        self.app.run(host=self.config.get('general', 'FLASK_HOST', fallback='0.0.0.0'), 
-                     port=self.config.get('general', 'FLASK_PORT', fallback=5000), 
-                     debug=True)
+        self.app.run(host=self.config.get('general', 'FLASK_HOST', fallback='0.0.0.0'),
+                     port=self.config.get('general', 'FLASK_PORT', fallback=5000),
+                     debug=False)
 
 if __name__ == "__main__":
     config = configparser.ConfigParser()
-    config.read('/etc/charlotte/agent.conf')
-    
+    config.read('/etc/charlotte_agent/agent.conf')
+
     module_manager = ModuleManager(config)
     module_manager.setup_environment_variables()
     module_manager.configure_logging()
